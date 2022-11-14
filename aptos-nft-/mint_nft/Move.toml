@@ -1,0 +1,14 @@
+[package]
+name = "nft Contract"
+version = "0.0.0"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "devnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-token/", rev = "devnet" }
+
+[addresses]
+aptos_framework = "0x1"
+# change it to the actual source address when publishing the module
+source_addr = "0xb5f5cdc501933de2b9ca3cc249f1c07d599a393ba3dcb5ca2756519201a15908"
+# change it to the actual admin address when publishing the module
+admin_addr = "0x891029952ea6eeb363a093640485484926ef70e67b71d54d84ac68ded46c4980"
