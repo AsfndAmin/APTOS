@@ -1,0 +1,16 @@
+[package]
+name = "bmd nft Contract"
+version = "0.0.0"
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "testnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-token/", rev = "testnet" }
+
+[addresses]
+aptos_framework = "0x1"
+# change it to the actual source address when publishing the module
+source_addr = "0x60b6377a98b60634ee2991591ca85c15132054f9eee5267f624e949e43164c6b"
+# change it to the actual admin address when publishing the module
+admin_addr = "0x6989caf1f19cb6cead7eb0eb5a3632f1431433bf745e337966623674a432bbea"
+# change it to fee receiver address when publishing the module
+fee_receiver_addr = "0xcad6bc4b4a31bd43de980e2e92548d47d2be7c2dcc90d7aefe5ae51aec8e134d"
