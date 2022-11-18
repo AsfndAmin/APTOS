@@ -54,6 +54,7 @@ module mint_nft::minting {
     use std::error;
     use std::signer;
     use std::string::{Self, String};
+    use std::option::{Self, Option};
     use std::vector;
 
     use aptos_framework::aptos_account;
@@ -61,7 +62,7 @@ module mint_nft::minting {
     use aptos_framework::event::{Self, EventHandle};
     use aptos_framework::timestamp;
     use aptos_std::ed25519;
-    use aptos_token::token::{Self, TokenDataId , TokenId  };
+    use aptos_token::token::{Self, TokenId , TokenDataId, Token };
     use aptos_framework::resource_account;
 
 
@@ -156,7 +157,7 @@ module mint_nft::minting {
             0,
             // we don't allow any mutation to the token
             token::create_token_mutability_config(
-                &vector<bool>[ false, false, false, false, true ]
+                &vector<bool>[ true, false, false, false, true ]
             ),
             vector::empty<String>(),
             vector::empty<vector<u8>>(),
@@ -293,12 +294,53 @@ module mint_nft::minting {
         token::burn(owner, creators_address, collection, name, property_version, amount) 
     }
 
-    // public fun change_collection_maxsupply(creator: &signer, collection_name: String, maximum: u64){
-    //     token::mutate_collection_maximum(creator, collection_name, maximum)
+    public fun check_maxSupply(token_data_id: TokenDataId): u64 {
+        token::get_tokendata_maximum(token_data_id)
+    }
 
-    // }
-    // public fun get_collection_maximumsupply(creator_address: address, collection_name: String): u64{
-    //         token::get_collection_maximum(creator_address, collection_name)
-    // }
+    public fun check_tokendata_uri(creator: address, token_data_id: TokenDataId): String{
+        token::get_tokendata_uri(creator, token_data_id)
+    }
+
+    public fun check_token_data_id_fields(token_data_id: &TokenDataId): (address, String, String) {
+        token::get_token_data_id_fields(token_data_id)
+    }
+
+     public fun change_tokendata_maximum(creator: &signer, token_data_id: TokenDataId, maximum: u64){
+         token::mutate_tokendata_maximum(creator, token_data_id, maximum)
+     }
+
+        // Transfers token from `from` to `to`.
+    public fun transferToken(
+        from: &signer,
+        id: TokenId,
+        to: address,
+    ) {
+   
+      token::transfer(from, id, to, 1);
+
+    }
+
+    //user need to be opt in to recieve token through direct transfer
+    public fun enable_opt_in_direct_transfer(account: &signer, opt_in: bool) {
+       token::opt_in_direct_transfer(account, opt_in) ;
+    }
+
+    public fun check_token_amount(token: &Token): u64 {
+            token::get_token_amount(token)
+        
+    }
+    public fun check_token_id_fields(token_id: &TokenId): (address, String, String, u64) {
+        token::get_token_id_fields(token_id) 
+    }
     
+    // return the largest_property_version of this TokenData
+     public fun get_tokendata_largest_property_version(creator_address: address, token_data_id: TokenDataId):u64{
+         token::get_tokendata_largest_property_version(creator_address, token_data_id)
+     }
+
+     /// return the number of distinct token_data_id created under this collection
+    public fun check_collection_supply(creator_address: address, collection_name: String): Option<u64> {
+            token::get_collection_supply(creator_address, collection_name)
+    }
 }
