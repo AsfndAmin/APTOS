@@ -1,0 +1,16 @@
+[package]
+name = 'BmdCollection'
+version = '1.0.0'
+
+[dependencies]
+AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-framework/", rev = "devnet" }
+AptosToken = { git = "https://github.com/aptos-labs/aptos-core.git", subdir = "aptos-move/framework/aptos-token/", rev = "devnet" }
+
+[addresses]
+aptos_framework = "0x1"
+# change it to the actual source address when publishing the module
+source_addr = "0x768201b81787b9a9311c2adc5f436cf02e898904921a25a333bdec61ab892f35"
+# change it to the actual admin address when publishing the module
+admin_addr = "0x1710bb10d395337a98f37df579d54cd82f7f9509c61a1ffee073b5d39d4e5773"
+# change it to fee receiver address when publishing the module
+fee_receiver_addr = "0x7e1eae6a22c692020a74a0fd0eea81fe427d6ea6e16416c5bfe67ab19cdf9d40"
